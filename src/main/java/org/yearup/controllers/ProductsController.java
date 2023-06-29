@@ -29,12 +29,18 @@ public class ProductsController
     public List<Product> search(@RequestParam(name="cat", required = false) Integer categoryId,
                                 @RequestParam(name="minPrice", required = false) BigDecimal minPrice,
                                 @RequestParam(name="maxPrice", required = false) BigDecimal maxPrice,
-                                @RequestParam(name="color", required = false) String color
-                                )
+                                @RequestParam(name="color", required = false) String color)
     {
         try
         {
-            return productDao.search(categoryId, minPrice, maxPrice, color);
+            // Check if any of the filters are present
+            if (categoryId != null || minPrice != null || maxPrice != null || color != null) {
+                // Pass the filters to the productDao.search method
+                return productDao.search(categoryId, minPrice, maxPrice, color);
+            } else {
+                // If no filters are specified, retrieve all products
+                return productDao.getAllProducts();
+            }
         }
         catch(Exception ex)
         {
@@ -81,7 +87,7 @@ public class ProductsController
     {
         try
         {
-            productDao.create(product);
+            productDao.update(id, product);
         }
         catch(Exception ex)
         {

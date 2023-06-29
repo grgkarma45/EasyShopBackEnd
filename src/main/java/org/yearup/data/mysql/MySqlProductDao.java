@@ -55,6 +55,11 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
         {
             throw new RuntimeException(e);
         }
+        // Print each product on a separate line
+        for (Product product : products) {
+            System.out.println(product);
+            System.out.println(); // Add an empty line between products
+        }
 
         return products;
     }
@@ -208,6 +213,23 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
         }
     }
 
+    @Override
+    public List<Product> getAllProducts() {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products";
+        try (Connection connection = getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet row = statement.executeQuery(sql);
+            while (row.next()) {
+                Product product = mapRow(row);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    }
+
     protected static Product mapRow(ResultSet row) throws SQLException
     {
         int productId = row.getInt("product_id");
@@ -220,6 +242,9 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
         boolean isFeatured = row.getBoolean("featured");
         String imageUrl = row.getString("image_url");
 
-        return new Product(productId, name, price, categoryId, description, color, stock, isFeatured, imageUrl);
+        Product product = new Product(productId, name, price, categoryId, description, color, stock, isFeatured, imageUrl);
+        return product;
+
     }
 }
+
