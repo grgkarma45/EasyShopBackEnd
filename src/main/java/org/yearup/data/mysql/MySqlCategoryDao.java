@@ -1,4 +1,6 @@
 package org.yearup.data.mysql;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.yearup.data.CategoryDao;
 import org.yearup.models.Category;
@@ -9,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.server.ResponseStatusException;
 @Component
 public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     public MySqlCategoryDao(DataSource dataSource) {
@@ -47,37 +50,26 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
         return null;
     }
     @Override
-    public Category create(Category category)
-    {
+    public ResponseEntity<Category> create(Category category) {
         String sql = "INSERT INTO categories(name, description) " +
                 " VALUES (?, ?);";
 
-        try (Connection connection = getConnection())
-        {
+        try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, category.getName());
             statement.setString(2, category.getDescription());
-
-            int rowsAffected = statement.executeUpdate();
-
-            if (rowsAffected > 0) {
-                // Retrieve the generated keys
-                ResultSet generatedKeys = statement.getGeneratedKeys();
-
-                if (generatedKeys.next()) {
-                    // Retrieve the auto-incremented ID
-                    int categoryId = generatedKeys.getInt(1);
-
-                    // get the newly inserted category
-                    category.setCategoryId(categoryId);
+            statement.executeUpdate();
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    int generatedId = resultSet.getInt(1);
+                    category.setCategoryId(generatedId);
+                    return new ResponseEntity<>(category, HttpStatus.CREATED);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException();
         }
-        catch (SQLException e)
-        {
-            throw new RuntimeException(e);
-        }
-        return category;
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @Override
     public void update(int categoryId, Category category) {
