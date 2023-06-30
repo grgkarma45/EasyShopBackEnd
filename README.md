@@ -51,7 +51,7 @@ Implemented methods:
 ### Search/Filter Bug
 
 - The search function was not returning the expected results.
-- The query inside the  Search method of MYSqlProduct  was updated to fix the issue.
+- The query inside the  Search method of MySqlProduct  was updated to fix the issue.
 
 ### Duplicate Products Bug
 
