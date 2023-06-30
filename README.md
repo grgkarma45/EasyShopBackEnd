@@ -37,12 +37,6 @@ Implemented methods:
 
 ### CategoriesController
 
-REST controller responsible for handling category-related requests.
-
-Base URL: `/categories`
-
-Cross-origin requests are allowed.
-
 Implemented methods:
 
 - `getAll()` - GET request to retrieve all categories.
