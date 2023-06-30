@@ -25,15 +25,6 @@ GET Search Products<br>
 - MySQL
 
 ## Phase 1
-### MySqlCategoriesDao
-
-Implemented methods:
-
-- `getAllCategories()` - Retrieves all categories from the database.
-- `getById(id)` - Retrieves a specific category from the database based on its ID.
-- `create(category)` - Creates a new category in the database.
-- `update(id, category)` - Updates an existing category in the database based on its ID.
-- `delete(id)` - Deletes a category from the database based on its ID.
 
 ### CategoriesController
 
@@ -44,6 +35,18 @@ Implemented methods:
 - `addCategory(category)` - POST request to add a new category (accessible only to administrators).
 - `updateCategory(id, category)` - PUT request to update a category by ID (accessible only to administrators).
 - `deleteCategory(id)` - DELETE request to delete a category by ID (accessible only to administrators).
+- 
+### MySqlCategoriesDao
+
+Implemented methods:
+
+- `getAllCategories()` - Retrieves all categories from the database.
+- `getById(id)` - Retrieves a specific category from the database based on its ID.
+- `create(category)` - Creates a new category in the database.
+- `update(id, category)` - Updates an existing category in the database based on its ID.
+- `delete(id)` - Deletes a category from the database based on its ID.
+
+
 
 ## Phase 2
 ## Bug Fixes
