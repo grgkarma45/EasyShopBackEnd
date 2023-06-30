@@ -3,19 +3,7 @@ This project is an online shop with a finished front end application. The
 back end of the project needed more methods to be implemented in order to do
 the following things :
 
-POST Register<br>
-POST Login - new user<br>
-POST Login - as admin<br>
-GET Get Categories<br>
-POST Add Category - not admin<br>
-GET Get Categories<br>
-POST Add Category - as admin<br>
-GET Get Categories - after add<br>
-GET Get New Category by Id<br>
-DEL Delete Category - as admin<br>
-GET Get Category By Id - after delete<br>
-GET Search Products<br>
-![](new screenshot\1.png)
+![](C:\LearnToCode_Capstones\EasyShopBackEnd\ReadMe_Images\1.png)
 
 
 ## Technologies Used
@@ -35,7 +23,7 @@ Implemented methods:
 - `addCategory(category)` - POST request to add a new category (accessible only to administrators).
 - `updateCategory(id, category)` - PUT request to update a category by ID (accessible only to administrators).
 - `deleteCategory(id)` - DELETE request to delete a category by ID (accessible only to administrators).
-- 
+
 ### MySqlCategoriesDao
 
 Implemented methods:
@@ -54,7 +42,7 @@ Implemented methods:
 ### Search/Filter Bug
 
 - The search function was not returning the expected results.
-- The query inside the  Search method of MySqlProduct  was updated to fix the issue.
+- The query inside the  Search method of MYSqlProduct  was updated to fix the issue.
 
 ### Duplicate Products Bug
 
@@ -62,7 +50,7 @@ Implemented methods:
 - The `UpdateProduct()` method in the `ProductController` class was altered to fix this issue.
 - The method now correctly uses the `update()` method of the `productDao` to update the product with the provided ID.
 
-![](\new screenshot\2.png)
+![](C:\LearnToCode_Capstones\EasyShopBackEnd\ReadMe_Images\2.png)
 
 ## Getting Started
 
